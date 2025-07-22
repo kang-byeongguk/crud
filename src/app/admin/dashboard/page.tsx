@@ -1,0 +1,138 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
+import Link from "next/link";
+
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
+
+  // if (!session || session.user.role !== "ADMIN") {
+  //   redirect("/api/auth/signin");
+  // }
+
+  const users = await db.user.findMany();
+  const posts = await db.post.findMany({
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
+  const handleChangeUserRole = async (userId: number, newRole: "USER" | "ADMIN") => {
+    "use server";
+    if (!session || session.user.role !== "ADMIN") {
+      return;
+    }
+    await db.user.update({
+      where: { id: userId },
+      data: { role: newRole },
+    });
+    redirect("/admin/dashboard");
+  };
+
+  const handleDeletePost = async (postId: number) => {
+    "use server";
+    if (!session || session.user.role !== "ADMIN") {
+      return;
+    }
+    await db.post.delete({
+      where: { id: postId },
+    });
+    redirect("/admin/dashboard");
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <div className="bg-white shadow">
+        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+          <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+          <button
+            onClick={() => signOut({ callbackUrl: '/' })}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+      <main>
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="px-4 py-6 sm:px-0">
+            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+              <h2 className="text-2xl font-semibold mb-4">Users Management</h2>
+              <table className="min-w-full bg-white">
+                <thead>
+                  <tr>
+                    <th className="py-2 px-4 border-b">ID</th>
+                    <th className="py-2 px-4 border-b">Name</th>
+                    <th className="py-2 px-4 border-b">Email</th>
+                    <th className="py-2 px-4 border-b">Role</th>
+                    <th className="py-2 px-4 border-b">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id}>
+                      <td className="py-2 px-4 border-b">{user.id}</td>
+                      <td className="py-2 px-4 border-b">{user.name}</td>
+                      <td className="py-2 px-4 border-b">{user.email}</td>
+                      <td className="py-2 px-4 border-b">{user.role}</td>
+                      <td className="py-2 px-4 border-b">
+                        {user.role === "USER" ? (
+                          <form action={async () => handleChangeUserRole(user.id, "ADMIN")}>
+                            <button type="submit" className="bg-green-500 text-white px-3 py-1 rounded text-sm">
+                              Make Admin
+                            </button>
+                          </form>
+                        ) : (
+                          <form action={async () => handleChangeUserRole(user.id, "USER")}>
+                            <button type="submit" className="bg-yellow-500 text-white px-3 py-1 rounded text-sm">
+                              Make User
+                            </button>
+                          </form>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-2xl font-semibold mb-4">Posts Management</h2>
+              <table className="min-w-full bg-white">
+                <thead>
+                  <tr>
+                    <th className="py-2 px-4 border-b">ID</th>
+                    <th className="py-2 px-4 border-b">Title</th>
+                    <th className="py-2 px-4 border-b">Author</th>
+                    <th className="py-2 px-4 border-b">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {posts.map((post) => (
+                    <tr key={post.id}>
+                      <td className="py-2 px-4 border-b">{post.id}</td>
+                      <td className="py-2 px-4 border-b"><Link href={`/posts/${post.id}`} className="text-blue-500 hover:underline">{post.title}</Link></td>
+                      <td className="py-2 px-4 border-b">{post.author.name}</td>
+                      <td className="py-2 px-4 border-b">
+                        <form action={async () => handleDeletePost(post.id)}>
+                          <button type="submit" className="bg-red-500 text-white px-3 py-1 rounded text-sm">
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
