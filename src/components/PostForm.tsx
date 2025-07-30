@@ -51,7 +51,7 @@ export default function PostForm({ initialData, postId }: PostFormProps) {
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <div className="mb-4">
         <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">
-          Title:
+          제목:
         </label>
         <input
           type="text"
@@ -64,7 +64,7 @@ export default function PostForm({ initialData, postId }: PostFormProps) {
       </div>
       <div className="mb-6">
         <label htmlFor="content" className="block text-gray-700 text-sm font-bold mb-2">
-          Content:
+          내용:
         </label>
         <textarea
           id="content"
@@ -80,7 +80,7 @@ export default function PostForm({ initialData, postId }: PostFormProps) {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           disabled={loading}
         >
-          {loading ? 'Saving...' : (postId ? 'Update Post' : 'Create Post')}
+          {loading ? '저장 중...' : (postId ? '게시물 수정' : '게시물 생성')}
         </button>
       </div>
     </form>

@@ -20,11 +20,11 @@ export default async function PostsPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Posts</h1>
+      <h1 className="text-3xl font-bold mb-6">게시물</h1>
       {session && (
         <div className="mb-4">
           <Link href="/posts/new" className="bg-blue-500 text-white px-4 py-2 rounded">
-            Create New Post
+            새 게시물 작성
           </Link>
         </div>
       )}
@@ -33,10 +33,10 @@ export default async function PostsPage() {
           <div key={post.id} className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
             <p className="text-gray-700 mb-4">{post.content.substring(0, 100)}...</p>
-            <p className="text-sm text-gray-500">Author: {post.author.name}</p>
-            <p className="text-sm text-gray-500">Created: {new Date(post.createdAt).toLocaleDateString()}</p>
+            <p className="text-sm text-gray-500">작성자: {post.author.name}</p>
+            <p className="text-sm text-gray-500">작성일: {new Date(post.createdAt).toLocaleDateString()}</p>
             <Link href={`/posts/${post.id}`} className="text-blue-500 hover:underline mt-2 inline-block">
-              Read More
+              더 보기
             </Link>
           </div>
         ))}

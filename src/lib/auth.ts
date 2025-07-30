@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
           id: `${user.id}`,
           email: user.email,
           name: user.name,
-          role: user.role, // Add role to the returned user object
+          role: user.role,
         };
       },
     }),
@@ -56,7 +56,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id;
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.role = token.role; // Add role to session
+        session.user.role = token.role;
       }
 
       return session;
@@ -66,7 +66,7 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
-        token.role = user.role; // Add role to token
+        token.role = user.role;
       }
 
       return token;

@@ -26,17 +26,17 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
   });
 
   if (!post) {
-    return <div className="container mx-auto p-4">Post not found.</div>;
+    return <div>게시물을 찾을 수 없습니다.</div>;
   }
 
+  // Authorization check
   if (post.authorId !== parseInt(session.user.id) && session.user.role !== "ADMIN") {
-    redirect("/posts"); // Or show an unauthorized message
+    return <div>이 게시물을 수정할 권한이 없습니다.</div>;
   }
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Edit Post</h1>
+      <h1 className="text-3xl font-bold mb-6">게시물 수정</h1>
       <PostForm initialData={{ title: post.title, content: post.content }} postId={post.id} />
     </div>
-  );
 }

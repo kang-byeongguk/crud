@@ -12,7 +12,7 @@ export default async function CreatePostPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Create New Post</h1>
+      <h1 className="text-3xl font-bold mb-6">새 게시물 작성</h1>
       <PostForm />
     </div>
   );
