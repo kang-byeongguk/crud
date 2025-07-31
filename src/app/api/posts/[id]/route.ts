@@ -76,7 +76,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, params: { id: string }) {
   try {
     const session = await getServerSession(authOptions);
 
