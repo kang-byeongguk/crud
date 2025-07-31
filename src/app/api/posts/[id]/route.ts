@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const postId = params.id;
 
@@ -31,7 +31,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -56,7 +56,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
       return new NextResponse("Post not found", { status: 404 });
     }
 
-    if (existingPost.authorId !== parseInt(session.user.id)) {
+    if (existingPost.authorId !== session.user.id) {
       return new NextResponse("Forbidden", { status: 403 });
     }
 
@@ -76,7 +76,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, params: { id: string }) {
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -97,7 +97,7 @@ export async function DELETE(req: Request, params: { id: string }) {
     }
 
     // Only allow admin or the author to delete the post
-    if (session.user.role !== "ADMIN" && existingPost.authorId !== parseInt(session.user.id)) {
+    if (session.user.role !== "ADMIN" && existingPost.authorId !== session.user.id) {
       return new NextResponse("Forbidden", { status: 403 });
     }
 

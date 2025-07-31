@@ -30,7 +30,7 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
   }
 
   // Authorization check
-  if (post.authorId !== parseInt(session.user.id) && session.user.role !== "ADMIN") {
+  if (post.authorId !== session.user.id && session.user.role !== "ADMIN") {
     return <div>이 게시물을 수정할 권한이 없습니다.</div>;
   }
 

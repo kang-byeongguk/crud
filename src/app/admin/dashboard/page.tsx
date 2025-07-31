@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { db } from "@/lib/db";
 import Link from "next/link";
 
@@ -11,8 +12,16 @@ export default async function DashboardPage() {
   //   redirect("/api/auth/signin");
   // }
 
-  const users = await db.user.findMany();
-  const posts = await db.post.findMany({
+  const users: Awaited<ReturnType<typeof db.user.findMany>> = await db.user.findMany();
+  const posts: Awaited<ReturnType<typeof db.post.findMany<{
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    };
+  }>>> = await db.post.findMany({
     include: {
       author: {
         select: {
@@ -22,9 +31,9 @@ export default async function DashboardPage() {
     },
   });
 
-  const handleChangeUserRole = async (userId: number, newRole: "USER" | "ADMIN") => {
+  const handleChangeUserRole = async (userId: string, newRole: "USER" | "ADMIN") => {
     "use server";
-    if (!session || session.user.role !== "ADMIN") {
+    if (!session || !session.user || session.user.role !== "ADMIN") {
       return;
     }
     await db.user.update({
@@ -36,7 +45,7 @@ export default async function DashboardPage() {
 
   const handleDeletePost = async (postId: number) => {
     "use server";
-    if (!session || session.user.role !== "ADMIN") {
+    if (!session || !session.user || session.user.role !== "ADMIN") {
       return;
     }
     await db.post.delete({
@@ -74,7 +83,7 @@ export default async function DashboardPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => (
+                  {users.map((user: typeof users[number]) => (
                     <tr key={user.id}>
                       <td className="py-2 px-4 border-b">{user.id}</td>
                       <td className="py-2 px-4 border-b">{user.name}</td>

@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "01acea6870571d6f7ae5fedb5360c8ab",
-    "previewModeSigningKey": "78f9f58dbde32a8f01876603e4e821c420cbb52ad0714db23bee6a6ee9b75562",
-    "previewModeEncryptionKey": "001e3f195f5e16c2e4ab61a4cccb06a86ef8d90d28d96a61cdcf92b679d75842"
-  }
-}
+{"version":4,"routes":{"/admin/login":{"experimentalBypassFor":[{"type":"header","key":"Next-Action"},{"type":"header","key":"content-type","value":"multipart/form-data;.*"}],"initialRevalidateSeconds":false,"srcRoute":"/admin/login","dataRoute":"/admin/login.rsc"},"/":{"experimentalBypassFor":[{"type":"header","key":"Next-Action"},{"type":"header","key":"content-type","value":"multipart/form-data;.*"}],"initialRevalidateSeconds":false,"srcRoute":"/","dataRoute":"/index.rsc"},"/signup":{"experimentalBypassFor":[{"type":"header","key":"Next-Action"},{"type":"header","key":"content-type","value":"multipart/form-data;.*"}],"initialRevalidateSeconds":false,"srcRoute":"/signup","dataRoute":"/signup.rsc"},"/unauthorized":{"experimentalBypassFor":[{"type":"header","key":"Next-Action"},{"type":"header","key":"content-type","value":"multipart/form-data;.*"}],"initialRevalidateSeconds":false,"srcRoute":"/unauthorized","dataRoute":"/unauthorized.rsc"}},"dynamicRoutes":{},"notFoundRoutes":[],"preview":{"previewModeId":"ff9e9f16c0b1d333d2e382235ea6b5e9","previewModeSigningKey":"a22f092ee4ca99b49f790dad6ab893b74061a518f0a96718cf0eb29b54acc05e","previewModeEncryptionKey":"ac21e468780b0244b038eb3110e0dc4d6efd45f3d20ee38c6793410b098f2dda"}}
