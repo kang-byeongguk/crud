@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       data: {
         title,
         content,
-        authorId: parseInt(session.user.id),
+        authorId: session.user.id,
       },
     });
 

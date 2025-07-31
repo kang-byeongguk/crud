@@ -4,6 +4,6 @@
   "/api/posts/route": "app/api/posts/route.js",
   "/page": "app/page.js",
   "/admin/login/page": "app/admin/login/page.js",
-  "/posts/page": "app/posts/page.js",
-  "/posts/new/page": "app/posts/new/page.js"
+  "/posts/new/page": "app/posts/new/page.js",
+  "/posts/page": "app/posts/page.js"
 }
