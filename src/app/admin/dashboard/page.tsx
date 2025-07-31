@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getAuthOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { db } from "@/lib/db";
@@ -8,7 +8,7 @@ import Link from "next/link";
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(getAuthOptions());
 
   // if (!session || session.user.role !== "ADMIN") {
   //   redirect("/api/auth/signin");

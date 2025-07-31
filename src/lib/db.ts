@@ -7,8 +7,7 @@ declare global {
 }
 
 export const db = 
-  global.prisma ||
-  new PrismaClient({
+  global.prisma || new PrismaClient({
     log: ['query'],
   })
 
