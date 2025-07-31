@@ -74,6 +74,15 @@ export default function LoginPage() {
             </button>
           </div>
         </form>
+        <div className="mt-4">
+          <button
+            onClick={() => signIn('kakao', { callbackUrl: '/posts' })}
+            className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full flex items-center justify-center"
+          >
+            <img src="/kakao-logo.png" alt="Kakao Logo" className="w-5 h-5 mr-2" />
+            카카오로 로그인
+          </button>
+        </div>
         <div className="text-center text-sm text-gray-600 mt-4">
           계정이 없으신가요?{" "}
           <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500">

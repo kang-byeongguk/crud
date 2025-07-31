@@ -21,6 +21,9 @@
 .inline-block {
   display: inline-block;
 }
+.table {
+  display: table;
+}
 .min-h-screen {
   min-height: 100vh;
 }
