@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import PostForm from "@/components/PostForm";
 import { db } from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 interface EditPostPageProps {
   params: {
     id: string;
