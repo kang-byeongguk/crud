@@ -13,7 +13,7 @@ interface EditPostPageProps {
 export default async function EditPostPage({ params }: EditPostPageProps) {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
+  if (!session || !session.user) {
     redirect("/api/auth/signin");
   }
 
@@ -39,4 +39,5 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
       <h1 className="text-3xl font-bold mb-6">게시물 수정</h1>
       <PostForm initialData={{ title: post.title, content: post.content }} postId={post.id} />
     </div>
+  );
 }

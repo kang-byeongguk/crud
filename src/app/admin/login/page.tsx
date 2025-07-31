@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { signIn, getSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -73,6 +74,12 @@ export default function LoginPage() {
             </button>
           </div>
         </form>
+        <div className="text-center text-sm text-gray-600 mt-4">
+          계정이 없으신가요?{" "}
+          <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+            회원가입
+          </Link>
+        </div>
       </div>
     </div>
   )
