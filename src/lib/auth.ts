@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db),
+  adapter: process.env.VERCEL_ENV === 'production' ? undefined : PrismaAdapter(db),
   session: {
     strategy: "jwt",
   },
@@ -51,8 +51,8 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     KakaoProvider({
-      clientId: process.env.KAKAO_CLIENT_ID!,
-      clientSecret: process.env.KAKAO_CLIENT_SECRET!,
+      clientId: process.env.KAKAO_CLIENT_ID,
+      clientSecret: process.env.KAKAO_CLIENT_SECRET,
     }),
   ],
   callbacks: {
