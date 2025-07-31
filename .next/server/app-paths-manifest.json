@@ -1,16 +1,16 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/admin/dashboard/page": "app/admin/dashboard/page.js",
   "/admin/login/page": "app/admin/login/page.js",
+  "/posts/new/page": "app/posts/new/page.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
   "/api/auth/signup/route": "app/api/auth/signup/route.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/posts/[id]/edit/page": "app/posts/[id]/edit/page.js",
+  "/page": "app/page.js",
   "/api/posts/[id]/route": "app/api/posts/[id]/route.js",
   "/api/posts/route": "app/api/posts/route.js",
-  "/page": "app/page.js",
-  "/posts/[id]/edit/page": "app/posts/[id]/edit/page.js",
   "/posts/[id]/page": "app/posts/[id]/page.js",
-  "/posts/new/page": "app/posts/new/page.js",
+  "/unauthorized/page": "app/unauthorized/page.js",
   "/posts/page": "app/posts/page.js",
   "/signup/page": "app/signup/page.js",
-  "/unauthorized/page": "app/unauthorized/page.js"
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
 }
